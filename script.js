@@ -1,82 +1,42 @@
-// ١. کاتژمێرە زیندووەکە
-function updateClock() {
-    const clockElement = document.getElementById('live-clock');
-    if (!clockElement) return;
-
-    const now = new Date();
-    const datePart = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
-    const timePart = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-    
-    clockElement.innerText = `${datePart} - ${timePart}`;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ٢. فەنکشنی کردنەوەی PDF
 function loadPDF(pdfUrl) {
     const mainArea = document.getElementById('main-area');
-    if (!mainArea) return;
-
-    mainArea.style.padding = "0";
-    const fullPdfUrl = window.location.origin + window.location.pathname + pdfUrl;
-    const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullPdfUrl)}&embedded=true`;
-
-    mainArea.innerHTML = `
-        <div class="pdf-viewer-container">
-            <div class="pdf-header">
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <span style="font-weight: bold;">📖 خوێندنەوە</span>
-                    <a href="${pdfUrl}" download class="download-btn">📥 داونلۆد</a>
-                </div>
-                <button onclick="location.reload()" class="close-btn">✕</button>
-            </div>
-            <iframe src="${googleViewerUrl}" class="pdf-frame" allowfullscreen></iframe>
-        </div>
-    `;
-    window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-// ٣. فەنکشن بۆ بەشە ئامادەنەکراوەکان
-function openCategory(catName) {
-    const mainArea = document.getElementById('main-area');
-    if (!mainArea) return;
-
-    mainArea.innerHTML = `
-        <div class="info-box">
-            <h2 style="color:#3498db; margin-bottom:15px;">بەشی ${catName}</h2>
-            <p>ئەم بەشە لە ئێستادا ئامادە دەکرێت... بەمزووانە کتێبەکانی لێرەدا بەردەست دەبن.</p>
-            <button onclick="location.reload()" class="back-btn">گەڕانەوە</button>
-        </div>
-    `;
-}
-
-// ٤. سیستەمی دەنگ
-function setTrack(fileName, title) {
-    const audio = document.getElementById('audio-ctrl');
-    const titleLabel = document.getElementById('track-display');
+    const googleViewerUrl = `https://docs.google.com/viewer?url=${window.location.origin + window.location.pathname + pdfUrl}&embedded=true`;
     
-    if (audio && titleLabel) {
-        titleLabel.innerText = "پەخش دەبێت: " + title;
-        audio.src = fileName;
-        audio.load();
-        audio.play().catch(e => console.log("Interaction needed"));
-    }
-}
-
-// ٥. فەنکشنی دەربارە
-function showAbout() {
-    const mainArea = document.getElementById('main-area');
-    if (!mainArea) return;
-
     mainArea.innerHTML = `
-        <div class="info-box" style="text-align:right;">
-            <h2 style="color:#3498db; border-bottom:2px solid #3498db; display:inline-block; margin-bottom:15px;">دەربارەی کتێبخانەی داریان</h2>
-            <p style="margin-bottom:15px; line-height:1.8;">بەخێربێیت بۆ کتێبخانەی داریان. ئەم پڕۆژەیە هەوڵێکی تاکەکەسییە بۆ ئاسانکاری دەستڕاگەیشتن بە کتێبە کوردییەکان و سەرچاوە زانستییەکان.</p>
-            <p style="font-style:italic; color:#555;">"سەرچاوەى زانیارییەکانم لە خولیاى باوکێکەوە دێت بۆ زانست و زانیارى، بۆیە هەمیشە ئەنوسم بەیادى ئەو."</p>
-            <hr style="margin:15px 0; border:0; border-top:1px solid #eee;">
-            <p style="font-size:13px;">دیزاین و گەشەپێدان: <strong>مەزهەر ڕەئوف</strong><br>٢٠٢٦/١/٦</p>
-            <button onclick="location.reload()" class="back-btn">گەڕانەوە</button>
+        <div style="height: 80vh;">
+            <div style="background:#3498db; color:white; padding:10px; display:flex; justify-content:space-between;">
+                <span>خوێندنەوەی پەرتووک</span>
+                <button onclick="location.reload()" style="background:red; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:4px;">داخستن</button>
+            </div>
+            <iframe src="${googleViewerUrl}" style="width:100%; height:100%; border:none;"></iframe>
         </div>
     `;
-    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function openBook(name) {
+    document.getElementById('main-area').innerHTML = `
+        <div style="padding:20px;">
+            <h2 style="color:#3498db;">بەشی ${name}</h2>
+            <p style="margin-top:15px;">ئەم بەشە لە ئێستادا ئامادە دەکرێت...</p>
+            <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; background:#3498db; color:white; border:none; border-radius:5px; cursor:pointer;">گەڕانەوە</button>
+        </div>
+    `;
+}
+
+function setTrack(file, title) {
+    const audio = document.getElementById('audio-ctrl');
+    document.getElementById('track-display').innerText = "پەخش دەبێت: " + title;
+    audio.src = file;
+    audio.play();
+}
+
+function showAbout() {
+    document.getElementById('main-area').innerHTML = `
+        <div style="text-align:right; padding:20px;">
+            <h2 style="color:#3498db;">دەربارەی پڕۆژە</h2>
+            <p style="margin-top:15px; line-height:1.8;">ئەمە کتێبخانەیەکی دیجیتاڵییە بۆ خزمەتکردن بە خوێنەرانی کورد.</p>
+            <p>دیزاین و گەشەپێدان: مەزهەر ڕەئوف</p>
+            <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; background:#3498db; color:white; border:none; border-radius:5px; cursor:pointer;">گەڕانەوە</button>
+        </div>
+    `;
 }
