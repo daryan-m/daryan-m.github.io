@@ -141,4 +141,5 @@ function showAbout() {
     
     // سکرۆڵ بکات بۆ لای نووسینەکە
     window.scrollTo({top: 0, behavior: 'smooth'});
+
 }
