@@ -8,9 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header class="main-header">
         <nav class="top-nav">
-            <div class="logo-area">📖 کتێبخانەی داریان</div>
+            <div class="logo-area">
+                <span style="font-size: 20px; font-weight: bold; color: #3498db;">📖 کتێبخانەی داریان</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="#" onclick="location.reload()">سەرەتا</a></li>
                 <li><a href="#" onclick="showAbout()">دەربارە</a></li>
@@ -18,42 +21,51 @@
         </nav>
     </header>
 
+    <div class="scrolling-text">
+        <p>بەخێربێیت بۆ کتێبخانەی داریان.. نوێترین کتێبەکان لێرە بەدەست بهێنە..</p>
+    </div>
+
     <div class="content-wrapper">
         <aside class="sidebar-right">
+            <h3 style="text-align:right; margin-bottom:15px; font-size:16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">📚 جۆری کتێبەکان</h3>
             <div class="book-list">
                 <button class="book-btn" onclick="loadPDF('quran.pdf')">📖 قورئانی پیرۆز</button>
                 <button class="book-btn" onclick="loadPDF('bukhari.pdf')">📚 صحیحی بوخاری</button>
-                
-                <div class="category-title">بەشەکان</div>
-                <button class="book-btn" onclick="openBook('ڕۆمان')">📚 ڕۆمان</button>
-                <button class="book-btn" onclick="openBook('منداڵان')">👶 منداڵان</button>
                 <button class="book-btn" onclick="openBook('ئایینی')">🌙 ئایینی</button>
                 <button class="book-btn" onclick="openBook('مێژوو')">📜 مێژوو</button>
+                <button class="book-btn" onclick="openBook('زانست')">🔬 زانست</button>
+                <button class="book-btn" onclick="openBook('ئەدەب')">✍️ ئەدەب</button>
+                <button class="book-btn" onclick="openBook('ڕۆمان')">📖 ڕۆمان</button>
+                <button class="book-btn" onclick="openBook('منداڵان')">🎨 منداڵان</button>
             </div>
         </aside>
 
         <main class="main-content" id="main-area">
-            <div class="welcome-box">
+            <div id="welcome-section" class="welcome-section">
                 <h1>بەخێر بێیت بۆ کتێبخانەی داریان</h1>
-                <p>تکایە کتێبێک یان بەشێک هەڵبژێرە بۆ خوێندنەوە.</p>
+                <p id="live-clock" style="margin-top:10px; color:#3498db; font-weight:bold;"></p>
+                <p style="margin-top:15px; color:#666;">تکایە بابەتێک هەڵبژێرە بۆ بینین</p>
             </div>
         </main>
 
         <aside class="audio-sidebar">
-            <div class="audio-player-box">
-                <h4 id="track-display">لیستی دەنگەکان</h4>
-                <audio id="audio-ctrl" controls style="width: 100%; margin-top:10px;">
-                    <source src="1.mp3">
-                </audio>
-                <ul class="audio-list">
-                    <li onclick="setTrack('1.mp3', 'محمد ایوب')">🎙️ محمد ایوب</li>
-                    <li onclick="setTrack('2.mp3', 'محمد صدیق منشاوی')">🎙️ محمد صدیق منشاوی</li>
-                </ul>
+            <div class="final-audio-box">
+                <div class="header-compact">
+                    <h3 id="track-display">دەنگەکان</h3> 
+                    <audio id="audio-ctrl" controls><source src="1.mp3" type="audio/mpeg"></audio>
+                </div>
+                <div class="list-container-clean">
+                    <ul>
+                        <li onclick="setTrack('1.mp3', 'محمد ایوب')">محمد ایوب</li>
+                        <li onclick="setTrack('audio2.mp3', 'بەشی دووەم')">بەشی دووەم</li>
+                        <li onclick="setTrack('audio3.mp3', 'بەشی سێیەم')">بەشی سێیەم</li>
+                    </ul>
+                </div>
             </div>
         </aside>
     </div>
 
-    <footer class="main-footer">مەزهەر ڕەئوف - ٢٠٢٦</footer>
+    <footer class="main-footer">لەبەروارى (٦/١/٢٠٢٦) دروست کراوە لەلایەن مەزهەر ڕەئوف</footer>
 
     <script src="script.js"></script>
 </body>
