@@ -16,7 +16,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" onclick="location.reload()">سەرەتا</a></li>
-                <li><a href="#">دەربارە</a></li>
+                <li><a href="#" onclick="showAbout()">دەربارە</a></li>
             </ul>
         </nav>
     </header>
@@ -29,11 +29,10 @@
         <aside class="sidebar-right">
             <h3 style="text-align:right; margin-bottom:15px; font-size:16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">📚 جۆری کتێبەکان</h3>
             
-            <div class="special-btn-container">
-                <button class="book-btn quran-btn" onclick="openPDF('quran.pdf')">📖 قورئانی پیرۆز</button>
-            </div>
-        
             <div class="book-list">
+                <button class="book-btn" onclick="loadPDF('quran.pdf')">📖 قورئانی پیرۆز</button>
+                <button class="book-btn" onclick="loadPDF('bukhari.pdf')">📚 صحیحی بوخاری</button>
+                
                 <button class="book-btn" onclick="openBook('ئایینی')">🌙 ئایینی</button>
                 <button class="book-btn" onclick="openBook('مێژوو')">📜 مێژوو</button>
                 <button class="book-btn" onclick="openBook('زانست')">🔬 زانست</button>
@@ -44,10 +43,11 @@
         </aside>
 
         <main class="main-content" id="main-area">
-            <div class="welcome-section">
+            <div id="welcome-section" class="welcome-section">
                 <h1>بەخێر بێیت بۆ کتێبخانەی داریان</h1>
                 <p style="margin-top:15px; color:#666;">تکایە بابەتێک هەڵبژێرە بۆ بینین</p>
             </div>
+            <iframe id="pdf-viewer" src="" style="display: none; width: 100%; height: 80vh; border: 2px solid #3498db; border-radius: 10px;"></iframe>
         </main>
 
         <aside class="audio-sidebar">
@@ -61,7 +61,7 @@
                 <div class="list-container-clean">
                     <ul>
                         <li onclick="setTrack('1.mp3', ' محمد ایوب')">محمد ایوب </li>
-                        <li onclick="setTrack('audio2.mp3', 'بەشی دووەم')">بەشی دووەم</li>
+                        <li onclick="setTrack('2.mp3', 'بەشی دووەم')">محمد صدیق منشاوى </li>
                         <li onclick="setTrack('audio3.mp3', 'بەشی سێیەم')">بەشی سێیەم</li>
                     </ul>
                 </div>
@@ -74,20 +74,30 @@
     </footer>
 
     <script>
+        // فەنکشنی لێدانی دەنگ
         function setTrack(fileName, title) {
             const audio = document.getElementById('audio-ctrl');
             const titleLabel = document.getElementById('track-display');
-            
             audio.src = fileName;
             titleLabel.innerText = title;
-            
             audio.load();
-            audio.play().catch(e => {
-                console.log("براوسەر ڕێگری دەکات لە لێدانی ئۆتۆماتیکی تا کلیک نەکەیت");
-            });
+            audio.play().catch(e => console.log("لێدانی ئۆتۆماتیکی ڕاگیراوە"));
         }
 
-        // بۆ ئەوەی کاتێک لاپەڕەکە دەبێتەوە، بەشی یەکەم ئامادە بێت
+        // فەنکشنی نوێ بۆ کردنەوەی کتێب لە ناوەڕاست
+        function loadPDF(pdfUrl) {
+            const welcome = document.getElementById('welcome-section');
+            const viewer = document.getElementById('pdf-viewer');
+            
+            // شاردنەوەی بەخێربێیت و پیشاندانی کتێبەکە
+            welcome.style.display = 'none';
+            viewer.src = pdfUrl;
+            viewer.style.display = 'block';
+            
+            // ئەگەر لە مۆبایل بوو، سکرۆڵ بکات بۆ سەرەوەی کتێبەکە
+            viewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
         window.onload = function() {
             const audio = document.getElementById('audio-ctrl');
             audio.load();
@@ -96,3 +106,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+

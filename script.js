@@ -1,7 +1,6 @@
 // ١. کاتژمێرە زیندووەکە
 function updateClock() {
     const now = new Date();
-    // ڕێکخستنی کاتژمێر بە شێوازێکی جوانتر
     const datePart = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
     const timePart = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
     
@@ -9,98 +8,73 @@ function updateClock() {
     if(clockElement) clockElement.innerText = `${datePart} - ${timePart}`;
 }
 setInterval(updateClock, 1000);
-updateClock(); // بانگکردنی یەکەمجار بۆ ئەوەی یەکسەر دەربکەوێت
+updateClock();
 
-// ٢. فرمانی کردنەوەی کتێبەکان
-function openBook(title, author, content) {
-    // نوێکردنەوەی زانیارییەکانی لای چەپ (Info Card)
-    document.getElementById('book-title').innerText = title;
-    document.getElementById('book-author').innerText = author;
+// ٢. فەنکشنی سەرەکی بۆ کردنەوەی PDF لە ناوەڕاست (بۆ قورئان و کتێبەکانی تر)
+function loadPDF(pdfUrl) {
+    const mainArea = document.getElementById('main-area');
+    if (!mainArea) return;
+
+    // دروستکردنی دیزاینێکی نوێ بە ڕەنگی شین و دوگمەی پرێنت و داونلۆد
+    mainArea.innerHTML = `
+        <div style="animation: fadeIn 0.6s ease; display: flex; flex-direction: column; height: 95vh; border: 2px solid #3498db; border-radius: 10px; overflow: hidden; background: white;">
+            
+            <div style="background: #3498db; color: white; padding: 4px 6px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span style="font-size: 11px;">📖 خوێندنەوەی کتێب</span>
+                    <button onclick="printPDF('${pdfUrl}')" style="background: #ffffff33; color: white; border: 1px solid white; padding: 1px 2px; cursor: pointer; border-radius: 2px; font-size: 11px;">🖨️ پرێنت</button>
+                    <a href="${pdfUrl}" download style="background: #ffffff33; color: white; border: 1px solid white; padding: 1px 2px; cursor: pointer; border-radius: 2px; font-size: 11px; text-decoration: none;">📥 داونلۆد</a>
+                </div>
+                <button onclick="location.reload()" style="background: #e74c3c; color: white; border: 1px solid white; padding: 1px 2px; cursor: pointer; border-radius: 2px; font-size: 11px;">✕ داخستن</button>
+            </div>
+
+            <iframe id="pdf-frame" src="${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                    style="width: 100%; flex-grow: 1; border: none;"></iframe>
+        </div>
+    `;
     
-    // شاردنەوەی بەشی بەخێرهاتن
-    const welcome = document.getElementById('welcome-section');
-    if(welcome) welcome.style.display = 'none';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
 
-    // پیشاندانی ناوەڕۆک لە ناو خوێنەرەکەدا (Reader)
-    const reader = document.getElementById('reader');
-    reader.innerHTML = `
-        <div style="animation: fadeIn 0.6s ease; text-align: justify;">
-            <h2 style="color: #1a2a6c; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 15px;">${title}</h2>
-            <p style="font-size: 19px; line-height: 2.2; color: #333;">${content}</p>
-            <button onclick="showHome()" style="margin-top: 30px; padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">داخستنی کتێب</button>
+// فەنکشنی تایبەت بۆ پرێنتکردن
+function printPDF(pdfUrl) {
+    const printWindow = window.open(pdfUrl, '_blank');
+    printWindow.print();
+}
+
+// ٣. فەنکشن بۆ کردنەوەی لیستی جۆرەکانی کتێب (ئەوانەی تەنها دەقن)
+function openBook(bookName) {
+    const mainArea = document.getElementById('main-area');
+    mainArea.innerHTML = `
+        <div style="animation: fadeIn 0.6s ease; text-align: right; padding: 15px; background: white; border-radius: 10px; border: 1px solid #eee;">
+            <h2 style="color: #3498db; border-bottom: 2px solid #3498db; display: inline-block; margin-bottom: 20px;">بەشی ${bookName}</h2>
+            <p style="font-size: 18px; line-height: 1.8; color: #444;">
+                ئەم بەشە لە ئێستادا ئامادە دەکرێت... <br>
+                بەمزووانە کتێبەکانی تایبەت بە <strong>${bookName}</strong> لێرەدا بەردەست دەبن.
+            </p>
+            <button onclick="location.reload()" style="margin-top: 30px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer;">گەڕانەوە بۆ سەرەتا</button>
         </div>
     `;
 }
 
-// ٣. گەڕانەوە بۆ سەرەتا
-function showHome() {
-    const welcome = document.getElementById('welcome-section');
-    if(welcome) welcome.style.display = 'block';
-    
-    document.getElementById('reader').innerHTML = '';
-    document.getElementById('book-title').innerText = '---';
-    document.getElementById('book-author').innerText = '---';
-}
-
-// سیستەمی لێدانی دەنگ بۆ مۆبایل و کۆمپیوتەر
-const handleFirstInteraction = () => {
-    const audio = document.getElementById('welcome-sound');
-    if (audio) {
-        audio.play()
-            .then(() => {
-                console.log("دەنگەکە کار دەکات");
-                // لادانی گوێگرەکان دوای یەکەم لێدان
-                removeInteractionListeners();
-            })
-            .catch(err => console.log("هێشتا ڕێگری هەیە:", err));
-    }
-};// فەنکشن بۆ گۆڕینی دەنگ و پەخشکردن
+// ٤. سیستەمی دەنگ (setTrack)
 function setTrack(fileName, title) {
     const audio = document.getElementById('audio-ctrl');
     const titleLabel = document.getElementById('track-display');
     
     if (audio && titleLabel) {
-        // گۆڕینی ناونیشان بۆ ناوی ئەو بەشەی کلیکی لێکراوە
         titleLabel.innerText = title;
-        
         audio.src = fileName;
         audio.load();
-        audio.play().catch(e => console.log("لێدان پێویستی بە کلیکی بەکارهێنەرە"));
+        audio.play().catch(e => console.log("لێدان پێویستی بە کلیکە"));
 
-        // ئەم بەشە نوێیە: کاتێک دەنگەکە تەواو بوو (Ended)
         audio.onended = function() {
-            titleLabel.innerText = "دەنگەکان"; // دووبارە دەبێتەوە بە "دەنگەکان"
+            titleLabel.innerText = "دەنگەکان";
         };
     }
 }
 
-
-// فەنکشن بۆ کردنەوەی ناوەڕۆکی کتێبەکان
-function openBook(bookName) {
-    const mainArea = document.getElementById('main-area');
-    mainArea.innerHTML = `
-        <div style="text-align: right; padding: 10px;">
-            <h2 style="color: #3498db; border-bottom: 2px solid #3498db; display: inline-block;">کتێبی ${bookName}</h2>
-            <p style="margin-top: 20px; font-size: 16px; line-height: 1.8;">
-                لێرەدا ناوەڕۆکی تایبەت بە ${bookName} دەرکەوێت... <br>
-                ئەم بەشە ئێستا ئامادەیە بۆ خوێندنەوە.
-            </p>
-            <button onclick="location.reload()" style="margin-top: 20px; padding: 8px 15px; cursor: pointer;">گەڕانەوە</button>
-        </div>
-    `;
-}
-
-const removeInteractionListeners = () => {
-    window.removeEventListener('click', handleFirstInteraction);
-    window.removeEventListener('touchstart', handleFirstInteraction); // بۆ مۆبایل زۆر گرنگە
-    window.removeEventListener('scroll', handleFirstInteraction);
-};
-
-// گوێگرتن بۆ یەکەم جوڵەی بەکارهێنەر
-window.addEventListener('click', handleFirstInteraction);
-window.addEventListener('touchstart', handleFirstInteraction); // گرنگترینە بۆ مۆبایل
-window.addEventListener('scroll', handleFirstInteraction);
-// ٥. زیادکردنی ئەنیمەیشنی fadeIn بۆ CSS لە ڕێگەی JS
+// ٥. ئەنیمەیشنی fadeIn
 const style = document.createElement('style');
 style.innerHTML = `
     @keyframes fadeIn { 
@@ -109,18 +83,57 @@ style.innerHTML = `
     }
 `;
 document.head.appendChild(style);
-// ئەمە زیاد بکە بۆ کۆتایی فایلەکە
-function openPDF(fileName) {
+
+// ٦. مامەڵەکردن لەگەڵ یەکەم جوڵە (بۆ کارکردنی دەنگ لە مۆبایل)
+const handleFirstInteraction = () => {
+    const audio = document.getElementById('audio-ctrl');
+    if (audio) {
+        audio.load();
+        removeInteractionListeners();
+    }
+};
+
+const removeInteractionListeners = () => {
+    window.removeEventListener('click', handleFirstInteraction);
+    window.removeEventListener('touchstart', handleFirstInteraction);
+};
+
+window.addEventListener('click', handleFirstInteraction);
+window.addEventListener('touchstart', handleFirstInteraction);
+
+function showAbout() {
     const mainArea = document.getElementById('main-area');
     if (!mainArea) return;
 
     mainArea.innerHTML = `
-        <div style="animation: fadeIn 0.6s ease; height: 100%;">
-            <div style="display: flex; justify-content: space-between; padding: 10px; background: #f8f9fa; border-radius: 8px; margin-bottom: 10px;">
-                <h3 style="color: #27ae60;">📖 قورئانی پیرۆز</h3>
-                <button onclick="location.reload()" style="background: #e74c3c; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px;">داخستن</button>
-            </div>
-            <iframe src="${fileName}" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+        <div style="animation: fadeIn 0.6s ease; text-align: right; padding: 20px; background: white; border-radius: 10px; border: 1px solid #3498db;">
+            <h2 style="color: #3498db; border-bottom: 2px solid #3498db; display: inline-block; margin-bottom: 20px;">دەربارەی کتێبخانەی داریان</h2>
+            
+            <p style="font-size: 14px; line-height: 2; color: #333; margin-bottom: 15px;">
+                بەخێربێیت بۆ کتێبخانەی داریان. ئەم پڕۆژەیە هەوڵێکی تاکەکەسییە بۆ کۆکردنەوە و ئاسانکاری دەستڕاگەیشتن بە کتێبە کوردییەکان و سەرچاوە ئایینی و زانستییەکان.
+            </p>
+
+            <ul style="list-style: none; padding-right: 0; font-size: 12px; color: #555;">
+                <li style="margin-bottom: 10px;">✅ خوێندنەوەی ڕاستەوخۆی PDF</li>
+                <li style="margin-bottom: 10px;">✅ گوێگرتن لە تلاوەت و دەنگەکان</li>
+                <li style="margin-bottom: 10px;">✅ داونلۆدکردنی کتێبەکان بەخۆڕایی</li>
+            </ul>
+
+            <p style="font-size: 14px; line-height: 2; color: #333; margin-bottom: 15px;">
+                سەرچاوەى زانیارییەکانم لە خولیاى باوکێکەوە دێت بۆ زانست و زانیارى،بۆیە هەمیشە ئەنوسم بەیادى ئەو.  .
+            </p>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            
+            <p style="font-size: 14px; color: #777;">
+                دیزاین و گەشەپێدان: <strong>مەزهەر ڕەئوف</strong><br>
+                بەرواری دروستکردن: ٢٠٢٦/١/٦
+            </p>
+
+            <button onclick="location.reload()" style="margin-top: 25px; padding: 10px 25px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">گەڕانەوە بۆ سەرەتا</button>
         </div>
     `;
+    
+    // سکرۆڵ بکات بۆ لای نووسینەکە
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
