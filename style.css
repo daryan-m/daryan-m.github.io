@@ -1,4 +1,4 @@
-/* 1. ڕێکخستنی سەرەکی */
+/* --- بنچینەی سایت --- */
 * { 
     font-family: 'Noto Naskh Arabic', sans-serif; 
     box-sizing: border-box; 
@@ -9,36 +9,36 @@
 body { 
     background-color: #f4f7f6; 
     direction: rtl; 
+    color: #333;
 }
 
-/* 2. هێدەر */
+/* --- هێدەر و ناڤبار --- */
 .main-header { 
     background: #ffffff; 
     border-bottom: 3px solid #3498db; 
     padding: 15px; 
-    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.nav-links { 
-    list-style: none; 
+.top-nav { 
     display: flex; 
-    justify-content: center; 
-    gap: 20px; 
-    margin-top: 10px;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;
 }
 
-.nav-links a { 
-    text-decoration: none; 
-    color: #34495e; 
-    font-weight: bold; 
-}
+.logo-area { font-size: 1.5rem; font-weight: bold; color: #2c3e50; }
+.nav-links { list-style: none; display: flex; gap: 20px; }
+.nav-links a { text-decoration: none; color: #34495e; font-weight: bold; font-size: 14px; cursor: pointer; }
 
-/* 3. کانتێنەر و دابەشکاری */
+/* --- دابەشکاری لاپەڕە --- */
 .content-wrapper { 
     display: flex; 
     flex-wrap: wrap; 
     padding: 15px; 
     gap: 15px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
 .sidebar-right, .audio-sidebar { 
@@ -52,10 +52,12 @@ body {
     background: #ffffff; 
     border-radius: 12px; 
     padding: 20px; 
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; 
+    min-height: 450px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
-/* 4. دوگمەکان و لیست */
+/* --- دوگمەکان و لیستەکان --- */
 .book-btn { 
     width: 100%; 
     padding: 12px; 
@@ -65,29 +67,47 @@ body {
     border-radius: 8px; 
     cursor: pointer; 
     text-align: right; 
+    transition: 0.3s;
 }
 
-.book-btn:hover { 
-    background: #3498db; 
-    color: white; 
-}
+.book-btn:hover { background: #3498db; color: white; }
 
+.category-title { margin: 15px 0 10px; font-weight: bold; color: #7f8c8d; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+
+/* --- پلەیەری دەنگی --- */
 .audio-player-box { 
     background: #fff; 
-    padding: 10px; 
+    padding: 15px; 
     border-radius: 10px; 
     border: 1px solid #3498db; 
 }
 
-/* 5. گونجاندن بۆ مۆبایل */
+.audio-list { list-style: none; margin-top: 10px; }
+.audio-list li { padding: 10px; border-bottom: 1px solid #f1f2f6; cursor: pointer; font-size: 14px; transition: 0.2s; }
+.audio-list li:hover { background: #f9f9f9; color: #3498db; }
+
+/* --- ستایلی تایبەت بە جاڤاسکریپت (PDF و زانیاری) --- */
+.pdf-viewer-container { display: flex; flex-direction: column; height: 85vh; width: 100%; animation: fadeIn 0.4s ease; border: 1px solid #3498db; border-radius: 8px; overflow: hidden; }
+.pdf-header { background: #3498db; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+.pdf-frame { width: 100%; height: 100%; border: none; }
+.info-box { animation: fadeIn 0.5s ease; padding: 25px; border: 1px solid #3498db; border-radius: 12px; text-align: center; background: #fff; }
+.back-btn { margin-top: 20px; padding: 10px 25px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.download-btn { background: #ffffff33; color: white; padding: 5px 12px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #fff; }
+.close-btn { background: #e74c3c; color: white; border: none; padding: 5px 15px; border-radius: 6px; cursor: pointer; font-size: 18px; line-height: 1; }
+
+/* --- کاتژمێر و فووتەر --- */
+#live-clock { font-size: 12px; color: #7f8c8d; margin-top: 5px; }
+.main-footer { text-align: center; padding: 20px; background: #2c3e50; color: white; font-size: 12px; margin-top: 30px; }
+
+/* ئەنیمەیشن */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* گونجاندن بۆ مۆبایل */
 @media (max-width: 768px) {
-    .content-wrapper { 
-        flex-direction: column; 
-    }
-    .sidebar-right, .audio-sidebar { 
-        max-width: 100%; 
-    }
-    .main-content { 
-        order: -1; 
-    }
+    .content-wrapper { flex-direction: column; }
+    .sidebar-right, .audio-sidebar { max-width: 100%; }
+    .main-content { order: -1; }
 }
