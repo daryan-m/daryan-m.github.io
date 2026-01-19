@@ -1,3 +1,93 @@
-body {
-    background-color: red !important;
+/* 1. ڕێکخستنی سەرەکی */
+* { 
+    font-family: 'Noto Naskh Arabic', sans-serif; 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body { 
+    background-color: #f4f7f6; 
+    direction: rtl; 
+}
+
+/* 2. هێدەر */
+.main-header { 
+    background: #ffffff; 
+    border-bottom: 3px solid #3498db; 
+    padding: 15px; 
+    text-align: center;
+}
+
+.nav-links { 
+    list-style: none; 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+    margin-top: 10px;
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: #34495e; 
+    font-weight: bold; 
+}
+
+/* 3. کانتێنەر و دابەشکاری */
+.content-wrapper { 
+    display: flex; 
+    flex-wrap: wrap; 
+    padding: 15px; 
+    gap: 15px; 
+}
+
+.sidebar-right, .audio-sidebar { 
+    width: 100%; 
+    max-width: 250px; 
+}
+
+.main-content { 
+    flex: 1; 
+    min-width: 300px; 
+    background: #ffffff; 
+    border-radius: 12px; 
+    padding: 20px; 
+    border: 1px solid #ddd;
+}
+
+/* 4. دوگمەکان و لیست */
+.book-btn { 
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 8px; 
+    background: #fff; 
+    border: 1px solid #3498db; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    text-align: right; 
+}
+
+.book-btn:hover { 
+    background: #3498db; 
+    color: white; 
+}
+
+.audio-player-box { 
+    background: #fff; 
+    padding: 10px; 
+    border-radius: 10px; 
+    border: 1px solid #3498db; 
+}
+
+/* 5. گونجاندن بۆ مۆبایل */
+@media (max-width: 768px) {
+    .content-wrapper { 
+        flex-direction: column; 
+    }
+    .sidebar-right, .audio-sidebar { 
+        max-width: 100%; 
+    }
+    .main-content { 
+        order: -1; 
+    }
 }
