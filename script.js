@@ -15,21 +15,26 @@ function loadPDF(pdfUrl) {
     const mainArea = document.getElementById('main-area');
     if (!mainArea) return;
 
-    // دروستکردنی دیزاینێکی نوێ بە ڕەنگی شین و دوگمەی پرێنت و داونلۆد
+    // ئەم دوو دێڕە زیاد بکە بۆ ئەوەی بۆشاییەکان نەهێڵێت
+    mainArea.style.padding = "0";
+    mainArea.style.margin = "0";
+    mainArea.style.maxWidth = "100%";
+
+    const fullPdfUrl = window.location.origin + window.location.pathname + pdfUrl;
+    const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullPdfUrl)}&embedded=true`;
+
     mainArea.innerHTML = `
-        <div style="animation: fadeIn 0.6s ease; display: flex; flex-direction: column; height: 95vh; border: 2px solid #3498db; border-radius: 10px; overflow: hidden; background: white;">
+        <div style="animation: fadeIn 0.4s ease; display: flex; flex-direction: column; height: 95vh; width: 100%; border: none; background: white;">
             
-            <div style="background: #3498db; color: white; padding: 4px 6px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <div style="background: #3498db; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; gap: 10px; align-items: center;">
-                    <span style="font-size: 11px;">📖 خوێندنەوەی کتێب</span>
-                    <button onclick="printPDF('${pdfUrl}')" style="background: #ffffff33; color: white; border: 1px solid white; padding: 1px 2px; cursor: pointer; border-radius: 2px; font-size: 11px;">🖨️ پرێنت</button>
-                    <a href="${pdfUrl}" download style="background: #ffffff33; color: white; border: 1px solid white; padding: 1px 2px; cursor: pointer; border-radius: 2px; font-size: 11px; text-decoration: none;">📥 داونلۆد</a>
+                    <span style="font-weight: bold; font-size: 14px;">📖 خوێندنەوە</span>
+                    <a href="${pdfUrl}" download style="background: #ffffff33; color: white; border: 1px solid white; padding: 4px 12px; border-radius: 4px; font-size: 12px; text-decoration: none;">📥 داونلۆد</a>
                 </div>
-                <button onclick="location.reload()" style="background: #e74c3c; color: white; border: 1px solid white; padding: 1px 2px; cursor: pointer; border-radius: 2px; font-size: 11px;">✕ داخستن</button>
+                <button onclick="location.reload()" style="background: #e74c3c; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 18px;">✕</button>
             </div>
 
-            <iframe id="pdf-frame" src="${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
-                    style="width: 100%; flex-grow: 1; border: none;"></iframe>
+            <iframe src="${googleViewerUrl}" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
         </div>
     `;
     

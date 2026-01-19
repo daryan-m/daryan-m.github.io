@@ -130,14 +130,23 @@ body {
 .list-container-clean li:hover { background: #f0f7ff; color: #007bff; }
 
 /* ٧. بەشی ناوەڕاست و پەنجەرەی خوێندنەوە */
-.main-content { 
-    flex: 1; 
-    background: white; 
-    border-radius: 10px; 
-    padding: 20px; 
-    text-align: center; 
-    border: 1px solid #eee; 
-    min-height: 400px; 
+.main-content {
+    flex: 1;
+    width: 100%; /* دڵنیابە ئەمە ۱۰۰٪ بێت */
+    background: white;
+    border-radius: 10px;
+    overflow: hidden; /* بۆ ئەوەی گۆشەکان بە جوانی بمێننەوە */
+}
+
+/* بۆ مۆبایل بە تایبەتی */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 0; /* لادانی بۆشایی لای چەپ و ڕاست لە مۆبایلدا */
+        gap: 0;
+    }
+    .main-content {
+        border-radius: 0; /* لە مۆبایلدا با گۆشەکانی تیژ بن تا هەموو سکرینەکە بگرێت */
+    }
 }
 
 #pdf-viewer {
