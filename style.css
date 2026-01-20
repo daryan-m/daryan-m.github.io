@@ -20,6 +20,7 @@ body {
     border-bottom: 3px solid #3498db;
     padding: 15px 0; /* ١٥ پۆینت بۆ سەر و خوار، سفر بۆ لایەکان */
     box-sizing: border-box;
+    display: block; /*
 }
 
 .top-nav {
@@ -239,5 +240,6 @@ body {
 .welcome-section {
     display: block;
 }
+
 
 
