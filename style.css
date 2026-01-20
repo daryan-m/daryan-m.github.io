@@ -15,10 +15,11 @@ body {
 
 /* ٢. هێدەر */
 .main-header {
-    margin: 8px 16px; 
-    border: 1px solid #3498db;
-    border-radius: 8px;
-    background-color: #f8f9fa;
+    width: 100%;
+    background: #fff;
+    border-bottom: 3px solid #3498db;
+    padding: 15px 0; /* ١٥ پۆینت بۆ سەر و خوار، سفر بۆ لایەکان */
+    box-sizing: border-box;
 }
 
 .top-nav {
@@ -238,4 +239,5 @@ body {
 .welcome-section {
     display: block;
 }
+
 
