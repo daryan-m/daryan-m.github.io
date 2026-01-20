@@ -17,10 +17,19 @@ body {
 .main-header {
     width: 100%;
     background: #fff;
-    border-bottom: 3px solid #3498db;
-    padding: 15px 0; /* ١٥ پۆینت بۆ سەر و خوار، سفر بۆ لایەکان */
+    /* هێڵی یەکەم - ڕەنگی شینەکەی خۆت */
+    border-bottom: 3px solid #3498db; 
+    /* هێڵی دووەم - سێبەرێکی خۆڵەمێشی کە وەک هێڵ دەردەکەوێت */
+    box-shadow: 0 4px 0 0 #bdc3c7; 
+    /* پاراستنی پادینگی خۆت و زیادکردنی بۆکس سایزینگ */
+    padding: 10px 0;
     box-sizing: border-box;
+    /* دڵنیابوونەوە لەوەی هیچ شتێک لێی دەرناچێت */
+    overflow: hidden;
+    /* بۆشاییەکی کەم بۆ ئەوەی نەنووسێت بە بەشەکانی خوارەوە */
+    margin-bottom: 5px;
 }
+
 
 .top-nav {
     display: flex;
@@ -239,6 +248,7 @@ body {
 .welcome-section {
     display: block;
 }
+
 
 
 
