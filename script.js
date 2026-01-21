@@ -6,7 +6,7 @@ function loadPDF(pdfUrl) {
         <div class="pdf-modal-container" style="animation: fadeIn 0.6s ease; display: flex; flex-direction: column; height: 90vh; background: white; margin: 0; border: none;">
             
             <div class="pdf-header-modern" style="justify-content: center; position: relative;">
-                <a href="${pdfUrl}" download class="pdf-btn" style="position: absolute; right: 15px; text-decoration: none; color: inherit; font-size: 11px;">📥 داونلۆد</a>
+                <a href="${pdfUrl}" download class="pdf-btn" style="position: absolute; right: 15px; text-decoration: none; color: inherit; font-size: 12px;">📥 داونلۆد</a>
                 
                 <h3 style="font-size: 14px; font-weight: bold; margin: 0;">📖 خوێندنەوەی کتێب</h3>
                 
@@ -69,4 +69,5 @@ function showAbout() {
     `;
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
 
