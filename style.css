@@ -109,6 +109,7 @@ body {
     text-align: center;
     font-size: 13px;
     transition: 4ll 0.3s ease;
+    font-color: #008080;
 }
 
 .book-btn:hover {
@@ -199,6 +200,7 @@ body {
     .content-wrapper { flex-direction: column; padding: 0 10px; }
     .sidebar-right, .audio-sidebar, .main-content { width: 100%; }
 }
+
 
 
 
