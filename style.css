@@ -184,7 +184,7 @@ body {
 
 .final-audio-box {
     width: 100%;
-    border: 1px solid #007bff;
+    border: 1px solid #3498db;
     border-radius: 8px;
     overflow: hidden;
     background: white;
@@ -222,6 +222,7 @@ body {
     .content-wrapper { flex-direction: column; padding: 0 10px; }
     .sidebar-right, .audio-sidebar, .main-content { width: 100%; }
 }
+
 
 
 
