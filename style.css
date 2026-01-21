@@ -85,7 +85,7 @@ body {
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
     gap: 10px; 
-    font-size: #0000;
+    font-color: #008080;
 }
 
 /* ڕیزی یەکەم: ٢ دوگمە */
@@ -199,6 +199,7 @@ body {
     .content-wrapper { flex-direction: column; padding: 0 10px; }
     .sidebar-right, .audio-sidebar, .main-content { width: 100%; }
 }
+
 
 
 
