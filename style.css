@@ -107,7 +107,7 @@ body {
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     transition: 4ll 0.3s ease;
     font-color: #008080;
 }
@@ -124,7 +124,7 @@ body {
     background: white; 
     border-radius: 12px; 
     padding: 0; /* لادانی بۆشایی دەوری کتێبەکە */
-    border: 1px solid #c0c0c0; 
+    border: 1px solid #eeeeee; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     overflow: hidden; /* بۆ ئەوەی گۆشەکان خڕ بمێننەوە */
 }
@@ -144,7 +144,7 @@ body {
 .welcome-section h1 {
     margin: 0;
     width: 100%;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 10px;
 }
 
@@ -222,6 +222,7 @@ body {
     .content-wrapper { flex-direction: column; padding: 0 10px; }
     .sidebar-right, .audio-sidebar, .main-content { width: 100%; }
 }
+
 
 
 
