@@ -48,7 +48,6 @@ body {
     border-radius: 50%;
     display: inline-block;
 }
-.nav-links li:first-child a::before { background-color: #2ecc71; }
 
 /* ٣. دەقە جوڵاوەکە */
 .scrolling-text {
@@ -79,7 +78,7 @@ body {
     gap: 20px;
 }
 
-/* ٥. ستایڵی دوگمەکانی کتێب (سیستەمی گریدی نوێ) */
+/* ٥. ستایڵی دوگمەکانی کتێب */
 .sidebar-right { width: 300px; flex-shrink: 0; }
 
 .book-list { 
@@ -88,16 +87,15 @@ body {
     gap: 10px; 
 }
 
-/* ڕیزی یەکەم: قورئان و بوخاری (تەنها ٢ دوگمە) */
+/* ڕیزی یەکەم: ٢ دوگمە */
 .book-list .book-btn:nth-child(1),
 .book-list .book-btn:nth-child(2) {
     grid-column: span 3;
     font-weight: bold;
     border: 2px solid #3498db;
-    font-size: 15px;
 }
 
-/* ڕیزی دووەم و بەرەو خوار: ٣ دوگمە لە ڕیزێکدا */
+/* ڕیزەکانی تر: ٣ دوگمە */
 .book-list .book-btn:nth-child(n+3) {
     grid-column: span 2;
 }
@@ -118,39 +116,46 @@ body {
     background: #f0f8ff;
     border-color: #3498db;
     transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* تایبەت بۆ دوگمەی قورئان و بوخاری لە کاتی هۆڤەر */
-.book-list .book-btn:nth-child(1):hover { background-color: #424ffa; color: white; }
-.book-list .book-btn:nth-child(2):hover { background-color: #27ae60; color: white; }
-
-/* ٦. ستایڵی مۆدێرنی پەنجەرەی PDF (ویندۆز ١١) */
+/* ٦. بەشی ناوەڕاست و پەنجەرەی PDF (ویندۆز ١١) */
 .main-content { 
     flex: 1; 
     background: white; 
     border-radius: 12px; 
-    overflow: hidden;
+    padding: 0; /* لادانی بۆشایی دەوری کتێبەکە */
     border: 1px solid #e0e0e0; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow: hidden; /* بۆ ئەوەی گۆشەکان خڕ بمێننەوە */
 }
 
-/* ئەم بەشە جێگەی ئەو هێدەرە شینە دەگرێتەوە */
+.pdf-modal-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .pdf-header-modern {
     background: #f3f3f3;
     padding: 10px 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #dcdcdc;
+    position: relative; /* بۆ ناوەڕاستخستنی ناونیشانەکە */
 }
 
-#pdf-viewer {
-    width: 100%;
-    height: 80vh;
-    border: none; /* لادانی بۆردەرە کۆنەکە بۆ ئەوەی وەک ویندۆز بێت */
-    display: block;
+.pdf-btn {
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
 }
+
+.pdf-btn:hover { background: #e5e5e5; }
+.pdf-btn.close-btn:hover { background: #e81123; color: white; border-color: #e81123; }
 
 /* ٧. ستایڵی ئۆدیۆ */
 .audio-sidebar { width: 280px; flex-shrink: 0; }
@@ -164,8 +169,17 @@ body {
 }
 
 .header-compact { background: #007bff; padding: 10px; text-align: center; color: white; }
-.header-compact h3 { font-size: 15px; margin-bottom: 5px; }
-.header-compact audio { width: 100%; height: 32px; }
+.header-compact audio { width: 100%; height: 32px; margin-top: 5px; }
+
+.list-container-clean ul { list-style: none; padding: 0; }
+.list-container-clean li {
+    padding: 10px 15px;
+    text-align: right;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    font-size: 14px;
+}
+.list-container-clean li:hover { background: #f0f7ff; color: #007bff; }
 
 /* ٨. فوتەر */
 .main-footer {
@@ -181,201 +195,8 @@ body {
     z-index: 1000;
 }
 
-/* ٩. مۆبایل و شاشەی بچووک */
-@media (max-width: 900px) {
-    .content-wrapper { flex-direction: column; }
-    .sidebar-right, .audio-sidebar, .main-content { width: 100%; }
-    .book-list .book-btn { font-size: 12px; }
-    #pdf-viewer { height: 70vh; }
-}
-
-.pdf-header { /* ئەو بەشەی پێشتر شین بوو */
-    background: #f3f3f3; /* ڕەنگی ویندۆز ١١ */
-    border-bottom: 1px solid #e2e2e2;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.pdf-header h3 {
-    font-size: 14px;
-    color: #333;
-    margin: 0;
-}
-
-.pdf-controls {
-    display: flex;
-    gap: 8px;
-}
-
-.pdf-btn {
-    background: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 5px 12px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.pdf-btn:hover {
-    background: #e5e5e5;
-}
-
-.pdf-btn.close-btn:hover {
-    background: #e81123; /* ڕەنگی سووری داخستنی ویندۆز */
-    color: white;
-    border-color: #e81123;
-}
-
-/* ٧. ستایڵی ئۆدیۆ */
-.audio-sidebar { width: 280px; flex-shrink: 0; }
-
-.final-audio-box {
-    width: 100%;
-    border: 1px solid #007bff;
-    border-radius: 8px;
-    overflow: hidden;
-    background: white;
-}
-
-.header-compact { background: #007bff; padding: 8px; text-align: center; }
-.header-compact h3 { color: white; font-size: 16px; margin-bottom: 6px; }
-.header-compact audio { width: 100%; height: 30px; }
-
-.list-container-clean ul { list-style: none; padding: 0; }
-.list-container-clean li {
-    padding: 12px 15px;
-    text-align: right;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-}
-.list-container-clean li:hover { background: #f0f7ff; color: #007bff; }
-
-/* ٧. بەشی ناوەڕاست و پەنجەرەی خوێندنەوە */
-.main-content { 
-    flex: 1; 
-    background: white; 
-    border-radius: 8px; 
-    padding: 20px 0; 
-    text-align: center; 
-    border: 1px solid #eee; 
-    min-height: 200px; 
-}
-
-#pdf-viewer {
-    width: 100%;
-    height: 80vh; /* بەرزییەکەی ڕێکدەخات بەپێی شاشەکە */
-    border: 1px solid #3498db;
-    border-radius: 8px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-    background-color: #fff;
-}
-
-.welcome-section h1 { font-size: 20px; color: #2c3e50; margin-top: 25px; }
-
-/* ٨. فوتەر */
-.main-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #ffffff;
-    text-align: center;
-    padding: 4px 0;
-    font-size: 12px;
-    color: #666;
-    border-top: 1px solid #3498db;
-    z-index: 1000;
-}
-
 /* ٩. مۆبایل */
 @media (max-width: 900px) {
-    .content-wrapper { flex-direction: column; align-items: center; }
+    .content-wrapper { flex-direction: column; padding: 0 10px; }
     .sidebar-right, .audio-sidebar, .main-content { width: 100%; }
-    #pdf-viewer { height: 85vh; }
 }
-
-.special-btn-container {
-    display: flex;
-    justify-content: center; /* دوگمەکان دەخاتە ناوەڕاست */
-    gap: 10px;               /* بۆشایی نێوان دوو دوگمەکە */
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-.quran-btn, .bukhari-btn {
-    flex: 1;                /* وادەکات هەردوو دوگمەکە هەمان قەبارەیان هەبێت */
-    max-width: 180px;       /* دەتوانیت ئەم ژمارەیە بگۆڕیت بۆ ئەوەی پانتر یان تەسکتر بن */
-    background-color: #fdfdfd;
-    border: 1px solid #3498db !important;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.bukhari-btn:hover {
-    background-color: #27ae60; /* ڕەنگی سەوز کاتێک ماوسی دەچێتە سەر */
-    color: white;
-    transform: translateY(-3px);
-}
-
-.quran-btn {
-    width: calc(50% - 5px) !important; 
-    background-color: #fdfdfd;
-    border: 2px solid #3498db !important;
-    font-weight: bold;
-}
-
-.quran-btn:hover {
-    background-color: #424ffa;
-    color: white;
-    transform: translateY(-3px);
-}
-/* ڕێکخستنی پەنجەرەی خوێندنەوەی کتێب */
-#pdf-viewer {
-    background-color: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin-top: 0px;
-}
-
-/* بۆ ئەوەی لە مۆبایلدا تەواوی شاشەکە بگرێتەوە */
-@media (max-width: 768px) {
-    #pdf-viewer {
-        height: 90vh;
-        width: 100%;
-    }
-}
-/* ستایڵی نوێی چوارچێوەی کتێب */
-#main-area {
-    transition: all 0.3s ease;
-}
-
-/* ڕەنگی شینی دەوری PDF */
-#pdf-viewer {
-    border: 1px solid #3498db;
-    border-radius: 8px;
-    background-color: #fff;
-}
-
-/* شاردنەوەی هەر دەقێکی کوردی زیادە کە بە هەڵە کەوتووەتە ناو CSS */
-.welcome-section {
-    display: block;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
